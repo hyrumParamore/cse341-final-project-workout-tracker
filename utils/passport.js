@@ -7,7 +7,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'http://localhost8080/google/callback'
+    callbackURL: 'https://cse341-final-project-workout-tracker.onrender.com/google/callback'
 }, (accessToken, refreshToken, profile, done) => {
     // Save or retrieve user information from the database
     // For now, we'll just pass the profile to the done callback
