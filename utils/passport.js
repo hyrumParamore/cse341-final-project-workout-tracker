@@ -8,12 +8,12 @@ passport.use(new GoogleStrategy({
     callbackURL: 'https://cse341-final-project-workout-tracker.onrender.com/google/callback'
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        let user = await findUserByGoogleId(profile.id);
+        let user = await findUserByGoogleId(profile.email);
 
         if (!user) {
             // User doesn't exist, create a new user
             user = {
-                googleId: profile.id,
+                // googleId: profile.id,
                 firstName: profile.name.givenName,
                 lastName: profile.name.familyName,
                 email: profile.emails[0].value
@@ -28,12 +28,12 @@ passport.use(new GoogleStrategy({
 }));
 
 passport.serializeUser((user, done) => {
-    done(null, user.googleId);
+    done(null, user.email);
 });
 
-passport.deserializeUser(async (googleId, done) => {
+passport.deserializeUser(async (email, done) => {
     try {
-        const user = await findUserByGoogleId(googleId);
+        const user = await findUserByGoogleId(email);
         done(null, user);
     } catch (err) {
         done(err);
