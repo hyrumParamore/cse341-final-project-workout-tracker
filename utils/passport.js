@@ -2,7 +2,7 @@
 
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const User = require('../models/user'); // Assuming you have a User model
+const User = require('../model/user'); // Assuming you have a User model
 // const bcrypt = require('bcrypt');
 
 // Configure the Google OAuth2 strategy
