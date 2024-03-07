@@ -5,12 +5,12 @@ const createUser = async (userData) => {
     return await db.collection('users').insertOne(userData);
 };
 
-const findUserByGoogleId = async (googleId) => {
+const findUserByGoogleEmail = async (email) => {
     const db = getDb();
-    return await db.collection('users').findOne({ googleId });
+    return await db.collection('users').findOne({ email });
 };
 
 module.exports = {
     createUser,
-    findUserByGoogleId,
+    findUserByGoogleEmail,
 };

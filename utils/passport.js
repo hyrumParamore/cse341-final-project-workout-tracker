@@ -1,6 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const { createUser, findUserByGoogleId } = require('../model/userModel');
+const { createUser, findUserByGoogleEmail } = require('../model/userModel');
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
@@ -8,7 +8,7 @@ passport.use(new GoogleStrategy({
     callbackURL: 'https://cse341-final-project-workout-tracker.onrender.com/google/callback'
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        let user = await findUserByGoogleId(profile.email);
+        let user = await findUserByGoogleEmail(profile.email);
 
         if (!user) {
             // User doesn't exist, create a new user
@@ -33,7 +33,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (email, done) => {
     try {
-        const user = await findUserByGoogleId(email);
+        const user = await findUserByGoogleEmail(email);
         done(null, user);
     } catch (err) {
         done(err);
