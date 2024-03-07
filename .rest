@@ -1,0 +1,19 @@
+GET http://localhost:8080/ HTTP/1.1
+
+### GET - all Exercises
+GET http://localhost:8080/exercises HTTP/1.1
+
+### GET - Exercise by ID
+GET http://localhost:8080/exercises/65e79f5ef24799384efe0aed HTTP/1.1
+
+### POST - Create a new Exercise
+POST http://localhost:8080/exercises HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Test Exercise",
+  "description": "Test Description",
+  "muscleGroup": "Test Muscle Group",
+  "equipment": "Test Equipment",
+  "createdAt": "Test Created Time"
+}
