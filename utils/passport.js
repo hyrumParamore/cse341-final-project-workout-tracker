@@ -8,7 +8,7 @@ passport.use(new GoogleStrategy({
     callbackURL: 'https://cse341-final-project-workout-tracker.onrender.com/google/callback'
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        let user = await findUserByGoogleEmail(profile.email);
+        let user = await findUserByGoogleEmail(profile.emails[0].value);
 
         if (!user) {
             // User doesn't exist, create a new user
@@ -26,6 +26,7 @@ passport.use(new GoogleStrategy({
         return done(err);
     }
 }));
+
 
 passport.serializeUser((user, done) => {
     done(null, user.email);
