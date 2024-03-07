@@ -1,6 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const userModel = require('../model/user.js'); // Assuming you have a user model file
+const { createUser, findUserByGoogleId } = require('../model/user'); // Assuming you have a user model file
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
@@ -8,17 +8,17 @@ passport.use(new GoogleStrategy({
     callbackURL: 'https://cse341-final-project-workout-tracker.onrender.com/google/callback'
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        let user = await userModel.findUserByGoogleId(profile.id);
+        let user = await findUserByGoogleId(profile.id);
 
         if (!user) {
             // User doesn't exist, create a new user
-            const userData = {
+            user = {
                 googleId: profile.id,
-                displayName: profile.displayName,
+                firstName: profile.name.givenName,
+                lastName: profile.name.familyName,
                 email: profile.emails[0].value
             };
-            const userId = await userModel.createUser(userData);
-            user = { _id: userId, ...userData }; // Add the user ID to the user object
+            await createUser(user);
         }
 
         return done(null, user);
@@ -28,13 +28,12 @@ passport.use(new GoogleStrategy({
 }));
 
 passport.serializeUser((user, done) => {
-    done(null, user._id); // Serialize the user ID instead of the entire user object
+    done(null, user.googleId);
 });
 
-passport.deserializeUser(async (id, done) => {
+passport.deserializeUser(async (googleId, done) => {
     try {
-        // Implement your logic to deserialize the user
-        const user = await userModel.findUserById(id); // Assuming you have a function to find a user by ID
+        const user = await findUserByGoogleId(googleId);
         done(null, user);
     } catch (err) {
         done(err);
