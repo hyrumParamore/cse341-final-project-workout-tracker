@@ -1,12 +1,43 @@
-const mongoose = require('mongoose');
+const { ObjectId } = require('mongodb');
+const mongodb = require('../db/connect');
 
-const userSchema = new mongoose.Schema({
-  googleId: { type: String, required: true },
-  displayName: { type: String, required: true },
-  email: { type: String, required: true },
-  password: { type: String }
-});
+// Define the User schema
+const userSchema = {
+    googleId: String,
+    displayName: String,
+    email: String,
+    password: String // You can add a password field if you want users to set a password later
+};
 
-const User = mongoose.model('User', userSchema);
+// Create a function to connect to the database
+// const connectToDb = async () => {
+//     const client = new MongoClient(process.env.MONGODB_URI, { useUnifiedTopology: true });
+//     await mongodb.initDb;
+//     return client.db();
+// };
 
-module.exports = User;
+// Create a function to insert a new user into the database
+const createUser = async (userData) => {
+    const db = await mongodb.initDb;
+    const result = await db.collection('users').insertOne(userData);
+    return result.insertedId;
+};
+
+// Create a function to find a user by their Google ID
+const findUserByGoogleId = async (googleId) => {
+    const db = await mongodb.initDb;
+    return db.collection('users').findOne({ googleId });
+};
+
+// Create a function to find a user by their ID
+const findUserById = async (userId) => {
+    const db = await mongodb.initDb;
+    return db.collection('users').findOne({ _id: ObjectId(userId) });
+};
+
+module.exports = {
+    userSchema,
+    createUser,
+    findUserByGoogleId,
+    findUserById,
+};

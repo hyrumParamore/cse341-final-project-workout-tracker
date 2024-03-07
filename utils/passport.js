@@ -1,34 +1,24 @@
-// auth.js controller
-
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const User = require('../model/user'); // Assuming you have a User model
-// const bcrypt = require('bcrypt');
+const userModel = require('../model/user.js'); // Assuming you have a user model file
 
-// Configure the Google OAuth2 strategy
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: 'https://cse341-final-project-workout-tracker.onrender.com/google/callback'
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        let user = await User.findOne({ googleId: profile.id });
+        let user = await userModel.findUserByGoogleId(profile.id);
 
         if (!user) {
             // User doesn't exist, create a new user
-            user = new User({
+            const userData = {
                 googleId: profile.id,
                 displayName: profile.displayName,
                 email: profile.emails[0].value
-            });
-
-            // Save the new user to the database
-            await user.save();
-        }
-
-        // Check if the user has a password, if not, require them to set one
-        if (!user.password) {
-            return done(null, user, { isNewUser: true });
+            };
+            const userId = await userModel.createUser(userData);
+            user = { _id: userId, ...userData }; // Add the user ID to the user object
         }
 
         return done(null, user);
@@ -37,15 +27,14 @@ passport.use(new GoogleStrategy({
     }
 }));
 
-// Serialize user information
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user._id); // Serialize the user ID instead of the entire user object
 });
 
-// Deserialize user information
 passport.deserializeUser(async (id, done) => {
     try {
-        const user = await User.findById(id);
+        // Implement your logic to deserialize the user
+        const user = await userModel.findUserById(id); // Assuming you have a function to find a user by ID
         done(null, user);
     } catch (err) {
         done(err);
