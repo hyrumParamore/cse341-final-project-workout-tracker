@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
+const middleware = require('../middleware/middleware')
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.get('/', (req, res) => {
 
 router.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
 
-router.get('/google/callback', passport.authenticate('google', {
+router.get('/google/callback', middleware.createNewUser, passport.authenticate('google', {
   failureRedirect: '/google/failure' // Redirect to login page if authentication fails
 }), (req, res) => {
   res.redirect('/'); // Redirect upon successful authentication
