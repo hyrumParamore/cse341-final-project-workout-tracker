@@ -9,7 +9,6 @@ passport.use(new GoogleStrategy({
 }, async (accessToken, refreshToken, profile, done) => {
     try {
         let user = await findUserByGoogleEmail(profile.emails[0].value);
-        let password = 1234
 
         if (!user) {
             // User doesn't exist, create a new user
@@ -17,8 +16,7 @@ passport.use(new GoogleStrategy({
                 // googleId: profile.id,
                 firstName: profile.name.givenName,
                 lastName: profile.name.familyName,
-                email: profile.emails[0].value,
-                password: password
+                email: profile.emails[0].value
             };
             await createUser(user);
         }
