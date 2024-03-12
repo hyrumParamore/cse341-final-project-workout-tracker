@@ -2,8 +2,8 @@ const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
     info: {
-        title: 'My API',
-        description: 'Recipe API'
+        title: 'Workout Tracker API',
+        description: 'Workout and Exercise Tracker'
     },
     host: 'cse341-final-project-workout-tracker.onrender.com', // cse341-final-project-workout-tracker.onrender.com
     schemes: ['https'],

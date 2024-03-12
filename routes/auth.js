@@ -8,16 +8,15 @@ router.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUnin
 router.use(passport.initialize());
 router.use(passport.session());
 
-// router.get('/', (req, res) => {
-//   res.send('<a href="/auth/google"> Authentication with Google</a>');
-// });
+router.get('/', (req, res) => {
+  res.send('<a href="/auth/google"> Authentication with Google</a>');
+});
 
 router.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
 
 router.get('/google/callback', passport.authenticate('google', {
   failureRedirect: '/google/failure' // Redirect to login page if authentication fails
 }), (req, res) => {
-  console.log("The user has been correctly redirected after authentication")
   res.redirect('/'); // Redirect upon successful authentication
 });
 
