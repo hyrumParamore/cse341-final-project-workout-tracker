@@ -1,7 +1,8 @@
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
-const middleware = require('../middleware/middleware')
+const middleware = require('../middleware/middleware');
+
 
 const router = express.Router();
 
@@ -13,14 +14,14 @@ router.get('/', (req, res) => {
   res.send('<a href="/auth/google"> Authentication with Google</a>');
 });
 
-router.get('/auth/google', middleware.createNewUser, passport.authenticate('google', { scope: ['email', 'profile'] }));
+router.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
 
-router.get('/google/callback', middleware.createNewUser, passport.authenticate('google', {
+router.get('/google/callback', passport.authenticate('google', {
   failureRedirect: '/google/failure' // Redirect to login page if authentication fails
-}), (req, res) => {
-  middleware.createNewUser
+}), middleware.createNewUser, (req, res) => {
   res.redirect('/'); // Redirect upon successful authentication
 });
+
 
 
 module.exports = router; 
