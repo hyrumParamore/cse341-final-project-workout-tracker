@@ -22,6 +22,7 @@ router.get('/google/callback', passport.authenticate('google', {
 
   // If not authenticated, check if the user exists in the database
   const user = await findUserByGoogleEmail(req.user.emails[0].value);
+  console.log('Found user:', user);
   if (!user) {
     // User doesn't exist, create a new user
     const newUser = {
