@@ -2,12 +2,7 @@ const { getDb } = require('../db/connect');
 
 const createUser = async (userData) => {
     const db = getDb();
-    try {
-        return await db.collection('users').insertOne(userData);
-    } catch (err) {
-        console.error('Error creating user:', err);
-        throw err;
-    }
+    return await db.collection('users').insertOne(userData);
 };
 
 const findUserByGoogleEmail = async (email) => {
