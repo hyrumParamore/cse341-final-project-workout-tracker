@@ -5,11 +5,22 @@
     "description": "Recipe API",
     "version": "1.0.0"
   },
-  "host": "localhost:8080",
+  "host": "cse341-final-project-workout-tracker.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
+  "securityDefinitions": {
+    "GoogleOAuth": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+      "scopes": {
+        "email": "Access user email address",
+        "profile": "Access user profile information"
+      }
+    }
+  },
   "paths": {
     "/": {
       "get": {
@@ -34,38 +45,6 @@
     "/google/callback": {
       "get": {
         "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/setup-password": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "password": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "default": {
             "description": ""
@@ -213,5 +192,13 @@
         }
       }
     }
-  }
+  },
+  "security": [
+    {
+      "GoogleOAuth": [
+        "email",
+        "profile"
+      ]
+    }
+  ]
 }

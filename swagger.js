@@ -5,8 +5,8 @@ const doc = {
         title: 'My API',
         description: 'Recipe API'
     },
-    host: 'localhost:8080',
-    schemes: ['http'],
+    host: 'cse341-final-project-workout-tracker.onrender.com', // cse341-final-project-workout-tracker.onrender.com
+    schemes: ['https'],
     securityDefinitions: {
         GoogleOAuth: {
             type: 'oauth2',
