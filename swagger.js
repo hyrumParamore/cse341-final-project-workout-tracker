@@ -11,7 +11,7 @@ const doc = {
         GoogleOAuth: {
             type: 'oauth2',
             flow: 'implicit',
-            authorizationUrl: 'https://cse341-final-project-workout-tracker.onrender.com/auth/google',
+            authorizationUrl: 'https://accounts.google.com/o/oauth2/auth',
             scopes: {
                 email: 'Access user email address',
                 profile: 'Access user profile information',
