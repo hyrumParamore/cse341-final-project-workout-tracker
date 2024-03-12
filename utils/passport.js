@@ -5,7 +5,7 @@ const { createUser, findUserByGoogleEmail } = require('../model/userModel');
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'https://cse341-final-project-workout-tracker.onrender.com/api-docs'
+    callbackURL: 'https://cse341-final-project-workout-tracker.onrender.com/google/callback'
 }, async (accessToken, refreshToken, profile, done) => {
     try {
         let user = await findUserByGoogleEmail(profile.emails[0].value);
