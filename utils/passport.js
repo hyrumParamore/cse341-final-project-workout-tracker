@@ -13,7 +13,7 @@ passport.use(new GoogleStrategy({
         if (!user) {
             // User doesn't exist, create a new user
             user = {
-                // googleId: profile.id,
+                googleId: profile.id,
                 firstName: profile.name.givenName,
                 lastName: profile.name.familyName,
                 email: profile.emails[0].value
@@ -21,8 +21,10 @@ passport.use(new GoogleStrategy({
             await createUser(user);
         }
 
+        console.log("Created New User")
         return done(null, user);
     } catch (err) {
+        console.log("Failed to create new user.")
         return done(err);
     }
 }));
