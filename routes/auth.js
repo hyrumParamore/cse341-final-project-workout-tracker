@@ -18,6 +18,7 @@ router.get('/auth/google', middleware.createNewUser, passport.authenticate('goog
 router.get('/google/callback', middleware.createNewUser, passport.authenticate('google', {
   failureRedirect: '/google/failure' // Redirect to login page if authentication fails
 }), (req, res) => {
+  middleware.createNewUser
   res.redirect('/'); // Redirect upon successful authentication
 });
 
