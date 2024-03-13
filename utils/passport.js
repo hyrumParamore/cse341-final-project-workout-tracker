@@ -15,7 +15,7 @@ passport.use(new GoogleStrategy({
         if (!user) {
             console.log("User does not exist, creating new user...");
             user = {
-                googleId: profile.id,
+                // googleId: profile.id,
                 firstName: profile.name.givenName,
                 lastName: profile.name.familyName,
                 email: profile.emails[0].value
