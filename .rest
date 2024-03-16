@@ -17,3 +17,115 @@ Content-Type: application/json
   "equipment": "Test Equipment",
   "createdAt": "Test Created Time"
 }
+
+### DELETE - Exercise by ID
+DELETE http://localhost:8080/exercises/65f4a8b8d0e5e1ba5d32389d HTTP/1.1
+
+
+
+
+
+##########################################################################
+###          WORKOUT ROUTES BELOW
+
+
+### GET - All Workouts
+GET http://localhost:8080/workouts HTTP/1.1
+
+### GET - Workout by ID
+GET http://localhost:8080/workouts/65f4a0f33280e982ab9bfa05 HTTP/1.1
+
+### POST - Creates a new Workout
+POST http://localhost:8080/workouts HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Creating a New Workout",
+  "description": "Description of a new Workout",
+  "muscle_group": "Full Body",
+  "exercises": [
+  {
+      "exerciseId": "65f4a0f33280e982ab9bfa05"
+  },
+  {
+      "exerciseId": "65f4a0113280e982ab9bfa01"
+  },
+  {
+      "exerciseId": "65f4a0243280e982ab9bfa02"
+  },
+  {
+      "exerciseId": "65f4a02c3280e982ab9bfa03"
+  }
+  ]
+}
+
+### PUT - UPDATE a Workout by ID
+PUT http://localhost:8080/workouts/65f4a8006f8f0d4bf2cc5c7a HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Updated Workout",
+  "description": "Description of a new Workout",
+  "muscle_group": "Full Body",
+  "exercises": [
+  {
+      "exerciseId": "65f4a0f33280e982ab9bfa05"
+  },
+  {
+      "exerciseId": "65f4a0113280e982ab9bfa01"
+  },
+  {
+      "exerciseId": "65f4a0243280e982ab9bfa02"
+  },
+  {
+      "exerciseId": "65f4a02c3280e982ab9bfa03"
+  }
+  ]
+}
+
+### DELETE - Workout by ID
+DELETE http://localhost:8080/workouts/65f4a8006f8f0d4bf2cc5c7a HTTP/1.1
+
+
+
+
+
+##########################################################################
+###          LOGS ROUTES BELOW
+
+### GET - All Workout LOGS
+GET http://localhost:8080/logs HTTP/1.1 
+
+### GET - Workout LOG by ID
+GET http://localhost:8080/logs/65f4ba9e0bde16f1d88e3654 HTTP/1.1
+
+### GET - User Logs by UserID
+GET http://localhost:8080/logs/get-user-logs/:userId HTTP/1.1
+
+### POST - Creates a new Workout LOG
+POST http://localhost:8080/logs HTTP/1.1
+Content-Type: application/json
+
+{
+  "userId": "65f107aec92326c41d5363cd",
+  "date": "2024-03-15 12:00 pm",
+  "workoutId": "65f4a0f33280e982ab9bfa05",
+  "duration": "30 minutes",
+  "notes": "Felt strong today, increased weight on squats."
+}
+
+### PUT - UPDATE a Workout by ID
+PUT http://localhost:8080/logs/65f4ba9e0bde16f1d88e3654 HTTP/1.1
+Content-Type: application/json
+
+{
+  "userId": "65f107aec92326c41d5363cd",
+  "date": "2024-03-15 12:00 pm",
+  "workoutId": "65f4a0f33280e982ab9bfa05",
+  "duration": "30 minutes",
+  "notes": "Updated the Log."
+}
+
+### DELETE - Workout Log by ID
+DELETE http://localhost:8080/logs/65f4ba9e0bde16f1d88e3654 HTTP/1.1
+

@@ -33,6 +33,13 @@ passport.use(new GoogleStrategy({
 }));
 
 
+// Middleware to add userId to headers
+const addUserIdToHeaders = (req, res, next) => {
+    if (req.user && req.user._id) {
+        req.headers['userId'] = req.user._id;
+    }
+    next();
+};
 
 passport.serializeUser((user, done) => {
     done(null, user.email);
@@ -47,4 +54,7 @@ passport.deserializeUser(async (email, done) => {
     }
 });
 
-module.exports = passport;
+module.exports = {
+    passport,
+    addUserIdToHeaders 
+}

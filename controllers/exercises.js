@@ -14,7 +14,7 @@ const getAllExercises = async (req, res) => {
 };
 
 
-// GET Recipe by ID
+// GET Exercise by ID
 const getExercisesById = async (req, res) => {
   try {
     const exerciseId = new ObjectId(req.params.id);
@@ -40,7 +40,9 @@ const createExercise = async (req, res ) => {
       description: req.body.description,
       muscleGroup: req.body.muscleGroup,
       equipment: req.body.equipment,
-      createdAt: req.body.createdAt,
+      reps: req.body.reps,
+      weight: req.body.weight,
+      sets: req.body.sets,
     };
     const response = await mongodb.getDb().db().collection('exercises').insertOne(exercise);
     if (response.acknowledged) {
@@ -63,7 +65,9 @@ const updateExercise = async (req, res) => {
       description: req.body.description,
       muscleGroup: req.body.muscleGroup,
       equipment: req.body.equipment,
-      createdAt: req.body.createdAt,
+      reps: req.body.reps,
+      weight: req.body.weight,
+      sets: req.body.sets,
     };
 
     const response = await mongodb.getDb().db().collection('exercise').replaceOne({ _id: exerciseId }, exercise);
@@ -84,7 +88,7 @@ const deleteExercise = async (req, res) => {
   try {
     const exerciseId = new ObjectId(req.params.id);
 
-    const response = await mongodb.getDb().db().collection('exercise').deleteOne({ _id: exerciseId });
+    const response = await mongodb.getDb().db().collection('exercises').deleteOne({ _id: exerciseId });
 
     if (response.deletedCount > 0) {
       res.status(204).send();

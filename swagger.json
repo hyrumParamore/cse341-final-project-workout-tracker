@@ -7,6 +7,28 @@
   },
   "host": "cse341-final-project-workout-tracker.onrender.com",
   "basePath": "/",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "User Routes"
+    },
+    {
+      "name": "Exercises",
+      "description": "Exercise Routes"
+    },
+    {
+      "name": "Workouts",
+      "description": "Workout Routes"
+    },
+    {
+      "name": "Logs",
+      "description": "Log Routes"
+    },
+    {
+      "name": "Auth",
+      "description": "Authentication Routes"
+    }
+  ],
   "schemes": [
     "https"
   ],
@@ -24,6 +46,9 @@
   "paths": {
     "/": {
       "get": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -34,6 +59,9 @@
     },
     "/auth/google": {
       "get": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "responses": {
           "default": {
@@ -44,6 +72,9 @@
     },
     "/google/callback": {
       "get": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "responses": {
           "default": {
@@ -52,8 +83,32 @@
         }
       }
     },
+    "/users/": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Returns all of the Users in the Database",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/exercises/": {
       "get": {
+        "tags": [
+          "Exercises"
+        ],
+        "summary": "Returns all of the Exercises",
         "description": "",
         "produces": [
           "application/json"
@@ -68,6 +123,10 @@
         }
       },
       "post": {
+        "tags": [
+          "Exercises"
+        ],
+        "summary": "Creates a new Exercise",
         "description": "",
         "parameters": [
           {
@@ -88,7 +147,13 @@
                 "equipment": {
                   "example": "any"
                 },
-                "createdAt": {
+                "reps": {
+                  "example": "any"
+                },
+                "weight": {
+                  "example": "any"
+                },
+                "sets": {
                   "example": "any"
                 }
               }
@@ -103,27 +168,14 @@
             "description": "Internal Server Error"
           }
         }
-      },
-      "delete": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
       }
     },
     "/exercises/{id}": {
       "get": {
+        "tags": [
+          "Exercises"
+        ],
+        "summary": "Returns an Exercise requiring the exercise ID",
         "description": "",
         "produces": [
           "application/json"
@@ -149,6 +201,10 @@
         }
       },
       "put": {
+        "tags": [
+          "Exercises"
+        ],
+        "summary": "Updates a Exercise requiring the exercise ID",
         "description": "",
         "parameters": [
           {
@@ -175,7 +231,13 @@
                 "equipment": {
                   "example": "any"
                 },
-                "createdAt": {
+                "reps": {
+                  "example": "any"
+                },
+                "weight": {
+                  "example": "any"
+                },
+                "sets": {
                   "example": "any"
                 }
               }
@@ -185,6 +247,361 @@
         "responses": {
           "204": {
             "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Exercises"
+        ],
+        "summary": "Deletes an Exercise requiring the exercise ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/workouts/": {
+      "get": {
+        "tags": [
+          "Workouts"
+        ],
+        "summary": "Returns all of the Workouts",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Workouts"
+        ],
+        "summary": "Creates a new Workout",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "muscleGroup": {
+                  "example": "any"
+                },
+                "exercises": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/workouts/{id}": {
+      "get": {
+        "tags": [
+          "Workouts"
+        ],
+        "summary": "Returns all of the Workouts requiring a workout ID",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Workouts"
+        ],
+        "summary": "Updates a Workout requiring a workout ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "muscleGroup": {
+                  "example": "any"
+                },
+                "exercises": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Workouts"
+        ],
+        "summary": "Deletes a Workout requiring a workout ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/logs/": {
+      "get": {
+        "tags": [
+          "Logs"
+        ],
+        "summary": "Returns all of the workout Logs",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Logs"
+        ],
+        "summary": "Creates a new workout Log",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "example": "any"
+                },
+                "date": {
+                  "example": "any"
+                },
+                "workoutId": {
+                  "example": "any"
+                },
+                "duration": {
+                  "example": "any"
+                },
+                "notes": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/logs/{userId}": {
+      "get": {
+        "tags": [
+          "Logs"
+        ],
+        "summary": "Returns a workout Log requiring a workout Log ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/logs/{id}": {
+      "put": {
+        "tags": [
+          "Logs"
+        ],
+        "summary": "Updates a workout Log requiring a workout Log ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "example": "any"
+                },
+                "date": {
+                  "example": "any"
+                },
+                "workoutId": {
+                  "example": "any"
+                },
+                "duration": {
+                  "example": "any"
+                },
+                "notes": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Logs"
+        ],
+        "summary": "Deletes a workout Log requiring a workout Log ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"

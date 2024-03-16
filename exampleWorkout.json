@@ -1,0 +1,43 @@
+[
+    {
+        "title": "Full Body Strength Workout",
+        "description": "A workout focused on building strength in all major muscle groups.",
+        "muscle_group": "Full Body",
+        "exercises": [
+            {
+                "id": "65f49ff23280e982ab9bfa00"
+            },
+            {
+                "id": "65f4a0113280e982ab9bfa01"
+            },
+            {
+                "id": "65f4a0243280e982ab9bfa02"
+            },
+            {
+                "id": "65f4a02c3280e982ab9bfa03"
+            }
+        ]
+    },
+
+    {
+        "title": "Second Full Body Workout Test",
+        "description": "A workout focused on building strength in all major muscle groups.",
+        "muscle_group": "Full Body",
+        "exercises": [
+        {
+            "id": "65f49ff23280e982ab9bfa00"
+        },
+        {
+            "id": "65f4a0113280e982ab9bfa01"
+        },
+        {
+            "id": "65f4a0243280e982ab9bfa02"
+        },
+        {
+            "id": "65f4a02c3280e982ab9bfa03"
+        }
+        ]
+    }
+]
+
+

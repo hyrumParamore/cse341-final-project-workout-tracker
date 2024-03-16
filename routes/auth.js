@@ -12,7 +12,9 @@ router.get('/', (req, res) => {
   res.send('<a href="/auth/google"> Authentication with Google</a>');
 });
 
-router.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
+router.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] })
+// #swagger.tags = ['Auth']
+);
 
 router.get('/google/callback', passport.authenticate('google', {
   failureRedirect: '/google/failure' // Redirect to login page if authentication fails
