@@ -91,8 +91,8 @@ const deleteExercise = async (req, res) => {
     const response = await mongodb.getDb().db().collection('exercises').deleteOne({ _id: exerciseId });
 
     if (response.deletedCount > 0) {
-      res.status(204).send();
-      res.send('Exercise deleted successfully');
+      res.status(204).send(); // Send a 204 status code without a response body
+      
     } else {
       res.status(404).json({ error: 'Exercise not found.' });
     }

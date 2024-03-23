@@ -27,4 +27,10 @@ router.use('/logs', require('./logs')
 );
 
 
+// TEST ROUTE FOR UNIT TEST
+router.get('/test', (req, res) => {
+    res.status(400).json({ message: 'Bad request' });
+  });
+
+
 module.exports = router; 

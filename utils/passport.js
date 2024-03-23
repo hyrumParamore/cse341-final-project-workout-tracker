@@ -2,7 +2,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const { createUser, findUserByGoogleEmail } = require('../model/userModel');
 
-passport.use(new GoogleStrategy({
+passport.use('google', new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: 'https://cse341-final-project-workout-tracker.onrender.com/google/callback'

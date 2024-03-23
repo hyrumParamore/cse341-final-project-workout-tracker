@@ -43,7 +43,21 @@ const getDb = () => {
     return _db;
 };
 
+const disconnectDb = () => {
+  if (_db) {
+      _db.close()
+          .then(() => {
+              _db = null;
+              console.log('Disconnected from MongoDB');
+          })
+          .catch((err) => {
+              console.error('Failed to disconnect from MongoDB:', err);
+          });
+  }
+};
+
 module.exports = {
     initDb,
     getDb,
+    disconnectDb,
 };

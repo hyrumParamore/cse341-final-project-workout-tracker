@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongodb = require('./db/connect');
 require('./utils/passport');
+require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -16,9 +17,8 @@ app.use('/', require('./routes'));
 mongodb.initDb((err) => {
   if (err) {
     console.log(err);
-    process.exit(1);
   } else {
-    app.use('/', require('./routes'));
+    // app.use('/', require('./routes'));
     app.listen(port, () => {
       console.log(`Connected to DB and listening on ${port}`);
     });
@@ -28,3 +28,5 @@ mongodb.initDb((err) => {
 process.on('uncaughtException', (err, origin) => {
   console.log(process.stderr.fd, `Caught exception: ${err}\n` + `Exception origin: ${origin}`);
 });
+
+module.exports = app;
