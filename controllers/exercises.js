@@ -55,6 +55,7 @@ const createExercise = async (req, res ) => {
   }
 };
 
+
 // Update an Exercise by ID
 const updateExercise = async (req, res) => {
   try {
@@ -70,7 +71,7 @@ const updateExercise = async (req, res) => {
       sets: req.body.sets,
     };
 
-    const response = await mongodb.getDb().db().collection('exercise').replaceOne({ _id: exerciseId }, exercise);
+    const response = await mongodb.getDb().db().collection('exercises').replaceOne({ _id: exerciseId }, exercise);
 
     console.log(response);
     if (response.modifiedCount > 0) {
@@ -82,6 +83,7 @@ const updateExercise = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 // Delete Exercise by ID
 const deleteExercise = async (req, res) => {
