@@ -79,7 +79,7 @@ const updateWorkout = async (req, res) => {
 
     const response = await mongodb.getDb().db().collection('workouts').replaceOne({ _id: workoutId }, workout);
 
-    console.log(response);
+    // console.log(response);
     if (response.modifiedCount > 0) {
       res.status(204).send();
     } else {
@@ -99,7 +99,7 @@ const deleteWorkout = async (req, res) => {
 
     if (response.deletedCount > 0) {
       res.status(204).send();
-      res.send('Workout deleted successfully');
+      // res.send('Workout deleted successfully');
     } else {
       res.status(404).json({ error: 'Workout not found.' });
     }

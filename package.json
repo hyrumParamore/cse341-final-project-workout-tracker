@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "jest --forceExit",
+    "test": "jest --runInBand --forceExit",
     "start": "nodemon app.js",
     "swagger": "node swagger.js",
     "lint": "eslint .",

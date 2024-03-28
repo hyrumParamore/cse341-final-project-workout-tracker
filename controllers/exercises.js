@@ -73,7 +73,7 @@ const updateExercise = async (req, res) => {
 
     const response = await mongodb.getDb().db().collection('exercises').replaceOne({ _id: exerciseId }, exercise);
 
-    console.log(response);
+    // console.log(response);
     if (response.modifiedCount > 0) {
       res.status(204).send();
     } else {

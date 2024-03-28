@@ -112,7 +112,7 @@ const updateLog = async (req, res) => {
   
       const response = await mongodb.getDb().db().collection('logs').replaceOne({ _id: logId }, log);
   
-        console.log(response);
+        // console.log(response);
         if (response.modifiedCount > 0) {
             res.status(204).send();
         } else {
@@ -133,7 +133,7 @@ const deleteLog = async (req, res) => {
   
       if (response.deletedCount > 0) {
         res.status(204).send();
-        res.send('Workout deleted successfully');
+        // res.send('Workout deleted successfully'); // The Unit test does not like this
       } else {
         res.status(404).json({ error: 'Workout Log not found.' });
       }
