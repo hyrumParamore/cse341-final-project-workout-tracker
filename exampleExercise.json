@@ -2,7 +2,7 @@
     {
         "name": "Squats",
         "description": "Squats are a compound exercise that targets the quadriceps, hamstrings, and glutes.",
-        "muscle_group": "Full Body",
+        "muscleGroup": "Full Body",
         "equipment": "Barbell",
         "reps": "8-12",
         "weight": "Body weight or loaded barbell",
@@ -11,7 +11,7 @@
     {
         "name": "Push-ups",
         "description": "Push-ups are a bodyweight exercise that targets the chest, shoulders, and triceps.",
-        "muscle_group": "Full Body",
+        "muscleGroup": "Full Body",
         "equipment": "None",
         "reps": "10-15",
         "weight": "Body weight",
@@ -20,7 +20,7 @@
     {
         "name": "Deadlifts",
         "description": "Deadlifts are a compound exercise that targets the lower back, glutes, hamstrings, and forearms.",
-        "muscle_group": "Full Body",
+        "muscleGroup": "Full Body",
         "equipment": "Barbell",
         "reps": "5-8",
         "weight": "Moderate to heavy barbell",
@@ -29,7 +29,7 @@
     {
         "name": "Pull-ups",
         "description": "Pull-ups are a bodyweight exercise that targets the back, biceps, and shoulders.",
-        "muscle_group": "Full Body",
+        "muscleGroup": "Full Body",
         "equipment": "Pull-up bar",
         "reps": "5-10",
         "weight": "Body weight",

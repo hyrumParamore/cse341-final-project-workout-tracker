@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/users');
 // const passport = require('../utils/passport')
+// const authorizationMiddleware = require('../middleware/middleware') // Authorization to allow user to access locked routes.
+
 
 
 // Make it so that when the user authenticates, then they will have access to the users in the database
