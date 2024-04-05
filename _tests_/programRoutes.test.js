@@ -3,29 +3,33 @@ const app = require('../app');
 const { expect } = require('@jest/globals');
 const { MongoClient } = require("mongodb");
 const dotenv = require('dotenv');
+const { authenticate } = require('./__mocks__/authMiddleware');
 dotenv.config();
-
 let connection;
 
-// const jwt = require('jsonwebtoken');
-// const jwtToken = process.env.JWT_WEB_TOKEN
 
-// Mock user data
-// const user = {
-//   id: '123456789',
-//   email: 'user@example.com',
-//   firstName: 'John',
-//   lastName: 'Doe'
-// };
 
-// Generate a JWT token
-// const token = jwt.sign(user, process.env.SESSION_SECRET, { expiresIn: '1h' });
-
-// console.log('Mocked JWT token:', token);
+// const { validateExercise } = require('../middleware/exerciseValidation');
 
 
 
+// Mocks/ Creates a mock of Google OAuth to pass the user authentication
+jest.mock('passport-google-oauth20');
 
+// Mock the Exercise validation middleware
+jest.mock('../middleware/exerciseValidation', () => ({
+  validateExercise: jest.fn().mockImplementation((req, res, next) => next()),
+}));
+
+// Mock the Workout validation middleware
+jest.mock('../middleware/workoutValidation', () => ({
+  validateWorkout: jest.fn().mockImplementation((req, res, next) => next()),
+}));
+
+// Mock the validation middleware
+jest.mock('../middleware/logValidation', () => ({
+  validateLog: jest.fn().mockImplementation((req, res, next) => next()),
+}));
 
 
 
@@ -51,6 +55,10 @@ afterAll(async () => {
 });
 
 
+const jwtToken = process.env.JWT_WEB_TOKEN;
+
+
+
 
 
 describe('\nExercise Routes Tests: ', () => {
@@ -59,35 +67,37 @@ describe('\nExercise Routes Tests: ', () => {
 
   // GET all Exercises
   it('Test GET All Exercises', async () => {
+    app.use('/exercises', authenticate);
+
     const response = await request(app)
       .get('/exercises')
       .set('Authorization', `Bearer ${jwtToken}`);
 
-
-    // console.log(response.body)
     expect(response.status).toBe(200);
-    expect(response.text).toBe('Authenticated');
   });
 
 
   // Create a new exercise
   it('Create a new exercise', async () => {
-    const createData = {
-      name: 'Create Test Exercise',
-      description: 'Create Test Description',
-      muscleGroup: 'Create Group',
-      equipment: 'Create Test Equipment',
-      reps: 15,
-      weight: 25,
-      sets: 4,
-    };
+    app.use('/exercises', authenticate);
 
+    const createData = {
+      name: "Test Exercise",
+      description: "Test Description",
+      muscleGroup: "Test Muscle Group",
+      equipment: "Test Equipment",
+      reps: 10,
+      weight: "Test Weight",
+      sets: "Test Sets",
+    };
+    
     exercise = createData;
 
     const createRes = await request(app)
       .post('/exercises')
-            .send(createData);
-
+      .set('Authorization', `Bearer ${jwtToken}`)
+      .send(createData);
+            
     expect(createRes.statusCode).toEqual(201);
     expect(createRes.body).toBeDefined();
     expect(createRes.body.acknowledged).toBe(true);
@@ -98,6 +108,8 @@ describe('\nExercise Routes Tests: ', () => {
 
   // GET Exercise By ID
   it('Test GET Exercise by Exercise ID', async () => {
+    app.use('/exercises', authenticate);
+
     const response = await request(app)
       .get(`/exercises/${exerciseId}`);
 
@@ -111,6 +123,8 @@ describe('\nExercise Routes Tests: ', () => {
 
   // Update the created exercise
   it('Update the created exercise', async () => {
+    app.use('/exercises', authenticate);
+
     const updateData = {
       name: 'Updated Test Exercise',
       description: 'Updated Test Description',
@@ -125,6 +139,7 @@ describe('\nExercise Routes Tests: ', () => {
   
     const updateRes = await request(app)
       .put(`/exercises/${exerciseId}`)
+      .set('Authorization', `Bearer ${jwtToken}`)
       .send(updateData);
   
     // Log the update response for debugging
@@ -136,8 +151,12 @@ describe('\nExercise Routes Tests: ', () => {
 
   // Delete the created exercise
   it('Delete the created exercise', async () => {
+    app.use('/exercises', authenticate);
+
     const deleteRes = await request(app)
-      .delete(`/exercises/${exerciseId}`);
+      .delete(`/exercises/${exerciseId}`)
+      .set('Authorization', `Bearer ${jwtToken}`);
+
 
     expect(deleteRes.statusCode).toEqual(204);
   });
@@ -147,6 +166,8 @@ describe('\nExercise Routes Tests: ', () => {
 
 // ****************** WORKOUT ROUTES ******************
 describe('\nWorkout Routes Tests: ', () => {
+  app.use('/workouts', authenticate);
+
   let workoutId;
   let workout;  // Saves the created workout to be compared to later.
 
@@ -154,6 +175,7 @@ describe('\nWorkout Routes Tests: ', () => {
   it('Test GET All Workout', async () => {
     const response = await request(app)
       .get('/workouts');
+      
 
     // console.log(response.body)
     expect(response.status).toBe(200);
@@ -161,6 +183,8 @@ describe('\nWorkout Routes Tests: ', () => {
 
   // Create a new workout
   it('Create a new Workout', async () => {
+    app.use('/workouts', authenticate);
+
     const createData = {
       title: 'Create Test Workout',
       description: 'Create Workout Test Description',
@@ -176,6 +200,7 @@ describe('\nWorkout Routes Tests: ', () => {
 
     const createRes = await request(app)
       .post('/workouts')
+      .set('Authorization', `Bearer ${jwtToken}`)
       .send(createData);
 
     expect(createRes.statusCode).toEqual(201);
@@ -188,8 +213,11 @@ describe('\nWorkout Routes Tests: ', () => {
 
   // GET Workout By ID
   it('Test GET Workout by Workout ID', async () => {
+    app.use('/workouts', authenticate);
+
     const response = await request(app)
-      .get(`/workouts/${workoutId}`);
+      .get(`/workouts/${workoutId}`)
+      .set('Authorization', `Bearer ${jwtToken}`);
 
       // console.log(response.body.title)
       // console.log(workout.title)
@@ -201,6 +229,8 @@ describe('\nWorkout Routes Tests: ', () => {
 
   // Update the created exercise
   it('Update the created Workout', async () => {
+    app.use('/workouts', authenticate);
+
     const updateData = {
       title: 'Update Test Workout',
       description: 'Update Workout Test Description',
@@ -216,6 +246,7 @@ describe('\nWorkout Routes Tests: ', () => {
   
     const updateRes = await request(app)
       .put(`/workouts/${workoutId}`)
+      .set('Authorization', `Bearer ${jwtToken}`)
       .send(updateData);
   
     // Log the update response for debugging
@@ -227,8 +258,11 @@ describe('\nWorkout Routes Tests: ', () => {
 
   // Delete the created workout
   it('Delete the created Workout', async () => {
+    app.use('/workouts', authenticate)
+
     const deleteRes = await request(app)
-      .delete(`/workouts/${workoutId}`);
+      .delete(`/workouts/${workoutId}`)
+      .set('Authorization', `Bearer ${jwtToken}`);
 
     expect(deleteRes.statusCode).toEqual(204);
   });
@@ -241,6 +275,8 @@ describe('\nWorkout Routes Tests: ', () => {
 
 // ****************** LOG ROUTES ******************
 describe('\nLog Routes Tests: ', () => {
+  app.use('/logs', authenticate);
+
   let logId;
   let userId; // Saves the created userId to be compared to later.
 
@@ -255,6 +291,8 @@ describe('\nLog Routes Tests: ', () => {
 
   // Create a new Log
   it('Create a new Log', async () => {
+    app.use('/logs', authenticate);
+
     const createData = {
       userId: 'Create Test Log',
       date: 'Create Log Test Description',
@@ -267,6 +305,7 @@ describe('\nLog Routes Tests: ', () => {
 
     const createRes = await request(app)
       .post('/logs')
+      .set('Authorization', `Bearer ${jwtToken}`)
       .send(createData);
 
     expect(createRes.statusCode).toEqual(201);
@@ -279,8 +318,11 @@ describe('\nLog Routes Tests: ', () => {
   
   // GET Log By ID
   it('Test GET Log by Log ID', async () => {
+    app.use('/logs', authenticate);
+
     const response = await request(app)
-      .get(`/logs/${userId}`);
+      .get(`/logs/${userId}`)
+      .set('Authorization', `Bearer ${jwtToken}`);
 
     // This will just test the response because it is not returning anything in the body.
     // It was just how I decided to make the logs work.
@@ -290,6 +332,8 @@ describe('\nLog Routes Tests: ', () => {
 
   // Update the created Log
   it('Update the created Log', async () => {
+    app.use('/logs', authenticate);
+
     const updateData = {
       userId: 'Update Test Log',
       date: 'Update Log Test Description',
@@ -302,6 +346,7 @@ describe('\nLog Routes Tests: ', () => {
   
     const updateRes = await request(app)
       .put(`/logs/${logId}`)
+      .set('Authorization', `Bearer ${jwtToken}`)
       .send(updateData);
   
     // Log the update response for debugging
@@ -313,8 +358,11 @@ describe('\nLog Routes Tests: ', () => {
 
   // Delete the created Log
   it('Delete the created Log', async () => {
+    app.use('/logs', authenticate);
+
     const deleteRes = await request(app)
-      .delete(`/logs/${logId}`);
+      .delete(`/logs/${logId}`)
+      .set('Authorization', `Bearer ${jwtToken}`);
 
     expect(deleteRes.statusCode).toEqual(204);
   });
@@ -324,20 +372,23 @@ describe('\nLog Routes Tests: ', () => {
 
 
 // ****************** USER ROUTES ******************
-// describe('\nUser Routes Tests: ', () => {
+describe('\nUser Routes Tests: ', () => {
 
-//   // GET all Users
-//   it('Test GET All Users Route', async () => {
-//     const response = await request(app)
-//       .get('/users');
+  // GET all Users
+  it('Test GET All Users Route', async () => {
+    app.use('/logs', authenticate);
 
-//     expect(response.status).toBe(200);
-//   });
+    const response = await request(app)
+      .get('/users')
+      .set('Authorization', `Bearer ${jwtToken}`);
 
-//   // Not too sure how to test the creation of a new user. It is all ran through the passport
-//   // that is pretty complex when it comes to testing that.
+    expect(response.status).toBe(200);
+  });
+
+  // Not too sure how to test the creation of a new user. It is all ran through the passport
+  // that is pretty complex when it comes to testing that.
   
-// });
+});
 
 
 
