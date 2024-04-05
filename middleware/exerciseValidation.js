@@ -3,8 +3,8 @@ const validator = require('../utils/validate');
 const validateExercise = (req, res, next) => {
   console.log(res.body)
   const validationRule = {
-    name: 'required|string|notEmpty',
-    description: 'required|string|notEmpty',
+    name: 'required|string',
+    description: 'required|string',
     muscleGroup: 'string',
     equipment: 'string',
     reps: 'numeric',

@@ -9,7 +9,13 @@ const validateLog = (req, res, next) => {
       notes: 'string',
       
     };
-    validator(req.body, validationRule, {}, (err, status) => {
+
+    const customValidators = {
+      notEmpty: (value) => {
+        return typeof value === 'string' && value.trim().length > 0;
+      }
+    };
+    validator(req.body, validationRule, customValidators, (err, status) => {
       if (!status) {
         res.status(412).send({
             success: false,

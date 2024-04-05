@@ -5,16 +5,16 @@
         "muscle_group": "Full Body",
         "exercises": [
             {
-                "id": "65f49ff23280e982ab9bfa00"
+                "id": "6610639fc68af8ffa986dd76"
             },
             {
-                "id": "65f4a0113280e982ab9bfa01"
+                "id": "661063afc68af8ffa986dd77"
             },
             {
-                "id": "65f4a0243280e982ab9bfa02"
+                "id": "661063b6c68af8ffa986dd78"
             },
             {
-                "id": "65f4a02c3280e982ab9bfa03"
+                "id": "661063bec68af8ffa986dd79"
             }
         ]
     },
@@ -25,16 +25,16 @@
         "muscle_group": "Full Body",
         "exercises": [
         {
-            "id": "65f49ff23280e982ab9bfa00"
+            "id": "6610639fc68af8ffa986dd76"
         },
         {
-            "id": "65f4a0113280e982ab9bfa01"
+            "id": "661063afc68af8ffa986dd77"
         },
         {
-            "id": "65f4a0243280e982ab9bfa02"
+            "id": "661063b6c68af8ffa986dd78"
         },
         {
-            "id": "65f4a02c3280e982ab9bfa03"
+            "id": "661063bec68af8ffa986dd79"
         }
         ]
     }
