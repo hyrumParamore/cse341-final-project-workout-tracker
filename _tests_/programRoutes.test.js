@@ -9,10 +9,6 @@ let connection;
 
 
 
-// const { validateExercise } = require('../middleware/exerciseValidation');
-
-
-
 // Mocks/ Creates a mock of Google OAuth to pass the user authentication
 jest.mock('passport-google-oauth20');
 
@@ -30,7 +26,6 @@ jest.mock('../middleware/workoutValidation', () => ({
 jest.mock('../middleware/logValidation', () => ({
   validateLog: jest.fn().mockImplementation((req, res, next) => next()),
 }));
-
 
 
 
@@ -56,8 +51,6 @@ afterAll(async () => {
 
 
 const jwtToken = process.env.JWT_WEB_TOKEN;
-
-
 
 
 
