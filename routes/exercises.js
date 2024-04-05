@@ -6,7 +6,7 @@ const authorizationMiddleware = require('../middleware/middleware')
 
 
 // GET all Exercises
-router.get('/', exercisesController.getAllExercises
+router.get('/', authorizationMiddleware.isAuthenticated, exercisesController.getAllExercises
 // #swagger.summary = 'Returns all of the Exercises'
 );
 

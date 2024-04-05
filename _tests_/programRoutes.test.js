@@ -6,6 +6,30 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 let connection;
+
+const jwt = require('jsonwebtoken');
+const jwtToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OSIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsImZpcnN0TmFtZSI6IkpvaG4iLCJsYXN0TmFtZSI6IkRvZSIsImlhdCI6MTcxMTY3NjAwMSwiZXhwIjoxNzExNjc5NjAxfQ.B9c7T1jhuFVhY5s_hlFGOIwbb9xrlggqkb-dQH1Er3w"
+
+// Mock user data
+const user = {
+  id: '123456789',
+  email: 'user@example.com',
+  firstName: 'John',
+  lastName: 'Doe'
+};
+
+// Generate a JWT token
+const token = jwt.sign(user, process.env.SESSION_SECRET, { expiresIn: '1h' });
+
+console.log('Mocked JWT token:', token);
+
+
+
+
+
+
+
+
 // let db; // Undo this and the one in the function below to use the beforeEach method.
 
 beforeAll(async () => {
@@ -28,6 +52,7 @@ afterAll(async () => {
 
 
 
+
 describe('\nExercise Routes Tests: ', () => {
   let exerciseId; // Stores the ID of an exercise to allow for multiple tests on the same exercise.
   let exercise;
@@ -35,10 +60,13 @@ describe('\nExercise Routes Tests: ', () => {
   // GET all Exercises
   it('Test GET All Exercises', async () => {
     const response = await request(app)
-      .get('/exercises');
+      .get('/exercises')
+      .set('Authorization', `Bearer ${jwtToken}`);
+
 
     // console.log(response.body)
     expect(response.status).toBe(200);
+    expect(response.text).toBe('Authenticated');
   });
 
 
@@ -58,7 +86,7 @@ describe('\nExercise Routes Tests: ', () => {
 
     const createRes = await request(app)
       .post('/exercises')
-      .send(createData);
+            .send(createData);
 
     expect(createRes.statusCode).toEqual(201);
     expect(createRes.body).toBeDefined();
