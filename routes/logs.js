@@ -24,7 +24,7 @@ router.post('/', authorizationMiddleware.isAuthenticated, logValidation.validate
         required: true,
         schema: {
             userId: "Workout Title",
-            date: "Description",
+            date: "Date",
             workoutId: "Workout ID",
             duration: "Duration",
             notes: "Log Notes",
@@ -49,7 +49,7 @@ router.put('/:id', authorizationMiddleware.isAuthenticated, logValidation.valida
         required: true,
         schema: {
             userId: "Update Workout Title",
-            date: "Update Description",
+            date: "Update Date",
             workoutId: "Update Workout ID",
             duration: "Update Duration",
             notes: "Update Log Notes",

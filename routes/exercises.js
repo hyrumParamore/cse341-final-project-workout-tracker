@@ -44,7 +44,7 @@ router.post('/', authorizationMiddleware.isAuthenticated, exerciseMiddleware.val
 );
 
 // PUT / Update an Exercise
-router.put('/:id', authorizationMiddleware.isAuthenticated, exercisesController.updateExercise
+router.put('/:id', authorizationMiddleware.isAuthenticated, exerciseMiddleware.validateExercise, exercisesController.updateExercise
 // #swagger.summary = 'Updates a Exercise requiring the exercise ID'
 // #swagger.description = 'Endpoint to update an already existing exercise with validation. Only Name and Description are required.'
 /*  #swagger.parameters['body'] = {
