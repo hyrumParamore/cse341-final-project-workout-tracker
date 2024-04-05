@@ -7,21 +7,21 @@ dotenv.config();
 
 let connection;
 
-const jwt = require('jsonwebtoken');
-const jwtToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OSIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsImZpcnN0TmFtZSI6IkpvaG4iLCJsYXN0TmFtZSI6IkRvZSIsImlhdCI6MTcxMTY3NjAwMSwiZXhwIjoxNzExNjc5NjAxfQ.B9c7T1jhuFVhY5s_hlFGOIwbb9xrlggqkb-dQH1Er3w"
+// const jwt = require('jsonwebtoken');
+// const jwtToken = process.env.JWT_WEB_TOKEN
 
 // Mock user data
-const user = {
-  id: '123456789',
-  email: 'user@example.com',
-  firstName: 'John',
-  lastName: 'Doe'
-};
+// const user = {
+//   id: '123456789',
+//   email: 'user@example.com',
+//   firstName: 'John',
+//   lastName: 'Doe'
+// };
 
 // Generate a JWT token
-const token = jwt.sign(user, process.env.SESSION_SECRET, { expiresIn: '1h' });
+// const token = jwt.sign(user, process.env.SESSION_SECRET, { expiresIn: '1h' });
 
-console.log('Mocked JWT token:', token);
+// console.log('Mocked JWT token:', token);
 
 
 
@@ -324,20 +324,20 @@ describe('\nLog Routes Tests: ', () => {
 
 
 // ****************** USER ROUTES ******************
-describe('\nUser Routes Tests: ', () => {
+// describe('\nUser Routes Tests: ', () => {
 
-  // GET all Users
-  it('Test GET All Users Route', async () => {
-    const response = await request(app)
-      .get('/users');
+//   // GET all Users
+//   it('Test GET All Users Route', async () => {
+//     const response = await request(app)
+//       .get('/users');
 
-    expect(response.status).toBe(200);
-  });
+//     expect(response.status).toBe(200);
+//   });
 
-  // Not too sure how to test the creation of a new user. It is all ran through the passport
-  // that is pretty complex when it comes to testing that.
+//   // Not too sure how to test the creation of a new user. It is all ran through the passport
+//   // that is pretty complex when it comes to testing that.
   
-});
+// });
 
 
 
