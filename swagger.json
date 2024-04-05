@@ -44,16 +44,6 @@
     }
   },
   "paths": {
-    "/test": {
-      "get": {
-        "description": "",
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
     "/": {
       "get": {
         "tags": [
@@ -139,6 +129,11 @@
         "summary": "Creates a new Exercise",
         "description": "Endpoint to create a new exercise with exercise validation. Only Name and Description are required.",
         "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
           {
             "name": "body",
             "in": "body",
@@ -235,6 +230,11 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
             "type": "string"
           },
           {
@@ -350,6 +350,11 @@
         "description": "Endpoint to create a new workout with workout validation. Only Title, Description, and Exercises are required.",
         "parameters": [
           {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "required": true,
@@ -441,6 +446,11 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
             "type": "string"
           },
           {
@@ -555,6 +565,11 @@
         "description": "Endpoint to create an already existing workout log with validation. UserID, Date, WorkoutID, and Duration are required.",
         "parameters": [
           {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "required": true,
@@ -638,6 +653,11 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
             "type": "string"
           },
           {
