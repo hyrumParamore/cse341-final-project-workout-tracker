@@ -7,7 +7,7 @@ const { authenticate } = require('./__mocks__/authMiddleware');
 dotenv.config();
 let connection;
 
-
+const jwtToken = process.env.JWT_WEB_TOKEN;
 
 // Mocks/ Creates a mock of Google OAuth to pass the user authentication
 jest.mock('passport-google-oauth20');
@@ -26,7 +26,6 @@ jest.mock('../middleware/workoutValidation', () => ({
 jest.mock('../middleware/logValidation', () => ({
   validateLog: jest.fn().mockImplementation((req, res, next) => next()),
 }));
-
 
 
 // let db; // Undo this and the one in the function below to use the beforeEach method.
@@ -50,16 +49,13 @@ afterAll(async () => {
 });
 
 
-const jwtToken = process.env.JWT_WEB_TOKEN;
 
-
-
-describe('\nExercise Routes Tests: ', () => {
+describe('\nExercise Routes Tests:\n  -Tests All Routes for correct response status, response body acknowledged, and/or response body defined.', () => {
   let exerciseId; // Stores the ID of an exercise to allow for multiple tests on the same exercise.
   let exercise;
 
   // GET all Exercises
-  it('Test GET All Exercises', async () => {
+  it('GET All Exercises Test', async () => {
     app.use('/exercises', authenticate);
 
     const response = await request(app)
@@ -71,7 +67,7 @@ describe('\nExercise Routes Tests: ', () => {
 
 
   // Create a new exercise
-  it('Create a new exercise', async () => {
+  it('Create a new exercise Test', async () => {
     app.use('/exercises', authenticate);
 
     const createData = {
@@ -100,7 +96,7 @@ describe('\nExercise Routes Tests: ', () => {
   });
 
   // GET Exercise By ID
-  it('Test GET Exercise by Exercise ID', async () => {
+  it('GET Exercise by Exercise ID Test', async () => {
     app.use('/exercises', authenticate);
 
     const response = await request(app)
@@ -115,7 +111,7 @@ describe('\nExercise Routes Tests: ', () => {
   });
 
   // Update the created exercise
-  it('Update the created exercise', async () => {
+  it('Update the created exercise Test', async () => {
     app.use('/exercises', authenticate);
 
     const updateData = {
@@ -143,7 +139,7 @@ describe('\nExercise Routes Tests: ', () => {
   
 
   // Delete the created exercise
-  it('Delete the created exercise', async () => {
+  it('Delete the created exercise Test', async () => {
     app.use('/exercises', authenticate);
 
     const deleteRes = await request(app)
@@ -158,14 +154,14 @@ describe('\nExercise Routes Tests: ', () => {
 
 
 // ****************** WORKOUT ROUTES ******************
-describe('\nWorkout Routes Tests: ', () => {
+describe('\nWorkout Routes Tests:\n  -Tests All Routes for correct response status, response body acknowledged, and/or response body defined.', () => {
   app.use('/workouts', authenticate);
 
   let workoutId;
   let workout;  // Saves the created workout to be compared to later.
 
   // GET all Workout
-  it('Test GET All Workout', async () => {
+  it('GET All Workout Test', async () => {
     const response = await request(app)
       .get('/workouts');
       
@@ -175,7 +171,7 @@ describe('\nWorkout Routes Tests: ', () => {
   });
 
   // Create a new workout
-  it('Create a new Workout', async () => {
+  it('Create a new Workout Test', async () => {
     app.use('/workouts', authenticate);
 
     const createData = {
@@ -205,7 +201,7 @@ describe('\nWorkout Routes Tests: ', () => {
   });
 
   // GET Workout By ID
-  it('Test GET Workout by Workout ID', async () => {
+  it('GET Workout by Workout ID Test', async () => {
     app.use('/workouts', authenticate);
 
     const response = await request(app)
@@ -221,7 +217,7 @@ describe('\nWorkout Routes Tests: ', () => {
   });
 
   // Update the created exercise
-  it('Update the created Workout', async () => {
+  it('Update the created Workout Test', async () => {
     app.use('/workouts', authenticate);
 
     const updateData = {
@@ -250,7 +246,7 @@ describe('\nWorkout Routes Tests: ', () => {
   
 
   // Delete the created workout
-  it('Delete the created Workout', async () => {
+  it('Delete the created Workout Test', async () => {
     app.use('/workouts', authenticate)
 
     const deleteRes = await request(app)
@@ -264,17 +260,15 @@ describe('\nWorkout Routes Tests: ', () => {
 
 
 
-
-
 // ****************** LOG ROUTES ******************
-describe('\nLog Routes Tests: ', () => {
+describe('\nLog Routes Tests:\n  -Tests All Routes for correct response status, response body acknowledged, and/or response body defined.', () => {
   app.use('/logs', authenticate);
 
   let logId;
   let userId; // Saves the created userId to be compared to later.
 
   // GET all Log
-  it('Test GET All Log', async () => {
+  it('GET All Logs Test', async () => {
     const response = await request(app)
       .get('/logs');
 
@@ -283,7 +277,7 @@ describe('\nLog Routes Tests: ', () => {
   });
 
   // Create a new Log
-  it('Create a new Log', async () => {
+  it('Create a new Log Test', async () => {
     app.use('/logs', authenticate);
 
     const createData = {
@@ -310,7 +304,7 @@ describe('\nLog Routes Tests: ', () => {
 
   
   // GET Log By ID
-  it('Test GET Log by Log ID', async () => {
+  it('GET Log by Log ID Test', async () => {
     app.use('/logs', authenticate);
 
     const response = await request(app)
@@ -324,7 +318,7 @@ describe('\nLog Routes Tests: ', () => {
   });
 
   // Update the created Log
-  it('Update the created Log', async () => {
+  it('Update the created Log Test', async () => {
     app.use('/logs', authenticate);
 
     const updateData = {
@@ -350,7 +344,7 @@ describe('\nLog Routes Tests: ', () => {
   
 
   // Delete the created Log
-  it('Delete the created Log', async () => {
+  it('Delete the created Log Test', async () => {
     app.use('/logs', authenticate);
 
     const deleteRes = await request(app)
@@ -365,11 +359,15 @@ describe('\nLog Routes Tests: ', () => {
 
 
 // ****************** USER ROUTES ******************
-describe('\nUser Routes Tests: ', () => {
+describe('\nUser Routes Tests:\n  -Tests All Routes for correct response status, response body acknowledged, and/or response body defined.', () => {
+  let createdUserId;
+  // let userId;
+  app.use('/users', authenticate);
+
 
   // GET all Users
-  it('Test GET All Users Route', async () => {
-    app.use('/logs', authenticate);
+  it('GET All Users Route Test', async () => {
+    app.use('/users', authenticate);
 
     const response = await request(app)
       .get('/users')
@@ -380,6 +378,75 @@ describe('\nUser Routes Tests: ', () => {
 
   // Not too sure how to test the creation of a new user. It is all ran through the passport
   // that is pretty complex when it comes to testing that.
+
+  // Create a new User
+  it('Create a new User Test', async () => {
+    app.use('/users', authenticate);
+
+    const createData = {
+      firstName: "Create First Name",
+      lastName: "Create Last Name",
+      email: "Create email@gmail.com",
+    };
+
+    // userId = createData.userId
+
+    const createRes = await request(app)
+      .post('/users')
+      .set('Authorization', `Bearer ${jwtToken}`)
+      .send(createData);
+
+    expect(createRes.statusCode).toEqual(201);
+    expect(createRes.body).toBeDefined();
+    expect(createRes.body.acknowledged).toBe(true);
+
+    createdUserId = createRes.body.insertedId;
+  });
+
+  
+  // GET User By ID
+  it('GET User by User ID Test', async () => {
+    app.use('/users', authenticate);
+
+    const response = await request(app)
+      .get(`/users/${createdUserId}`)
+      .set('Authorization', `Bearer ${jwtToken}`);
+
+    expect(response.status).toBe(200);
+    
+  });
+
+  // Update the created User
+  it('Update the created user Test', async () => {
+    app.use('/users', authenticate);
+
+    const updateData = {
+      firstName: "Updated First Name",
+      lastName: "Updated Last Name",
+      email: "Updated email@gmail.com",
+    };
+    
+    const updateRes = await request(app)
+      .put(`/users/${createdUserId}`)
+      .set('Authorization', `Bearer ${jwtToken}`)
+      .send(updateData);
+  
+    // console.log('Update Response:', updateRes.body);
+  
+    expect(updateRes.statusCode).toEqual(204);
+  });
+  
+
+  // Delete the created User
+  it('Delete the created User Test', async () => {
+    app.use('/users', authenticate);
+
+    const deleteRes = await request(app)
+      .delete(`/users/${createdUserId}`)
+      .set('Authorization', `Bearer ${jwtToken}`);
+
+    expect(deleteRes.statusCode).toEqual(204);
+  });
   
 });
 
