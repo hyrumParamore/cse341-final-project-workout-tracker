@@ -5,7 +5,7 @@
     "description": "Workout and Exercise Tracker \n To create an account, go to this link (https://cse341-final-project-workout-tracker.onrender.com) to get the account to be created through OAuth. It will create an account based off of your google credentials. \n It will only use Profile First Name, Last Name, and Email. You will only need to create an account once. \n Once that is created, then return to the swagger documentation and then authorize by pressing the authorize button, Passing in the required Client ID, selecting all the options, and then following the OAuth instructions.",
     "version": "1.0.0"
   },
-  "host": "localhost:8080",
+  "host": "cse341-final-project-workout-tracker.onrender.com",
   "basePath": "/",
   "tags": [
     {
@@ -30,7 +30,7 @@
     }
   ],
   "schemes": [
-    "http"
+    "https"
   ],
   "securityDefinitions": {
     "GoogleOAuth": {
