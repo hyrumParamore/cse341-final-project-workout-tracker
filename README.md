@@ -19,8 +19,8 @@ This program also has validation integrated into it, so if there is a ***POST***
 
 Inside this program are also ***Unit Tests*** for each of the routes in the Swagger API Documentation. Each test checks whether the route works correctly and returns the correct response. There are a few mocks being used in it, but other than that, it tests directly to the database by creating, updating, and deleting the users, so that it does not add unnecessary database entries. There are 19 tests total, and they all pass.
 
-Here is the demo video that I submitted to show off the project. It goes into detail about the project and some of the challenges that I faced: 
-* [CSE 341 - Final Project - Workout Tracker](https://www.youtube.com/watch?v=doYIXvnF7fU&list=PLPE1QSGfgkqzt2ZOL1YVs88NRuCPuE96I&index=11)
+Here is the ***Demo Video*** that I submitted to show off the project. It goes into detail about the project and some of the challenges that I faced: 
+* [YouTube: CSE 341 - Final Project - Workout Tracker](https://www.youtube.com/watch?v=doYIXvnF7fU&list=PLPE1QSGfgkqzt2ZOL1YVs88NRuCPuE96I&index=11)
 
 
 ## Resources Used:
