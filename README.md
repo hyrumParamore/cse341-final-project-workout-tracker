@@ -10,7 +10,7 @@ This is a Node.js Express.js project that is deployed on render. It connects to 
 
 * [https://cse341-final-project-workout-tracker.onrender.com/api-docs/](https://cse341-final-project-workout-tracker.onrender.com/api-docs/) (This link may take a minute to load.)
 
-This program is using authorization from Google OAuth 2, meaning that to be authenticated, one must connect follow a link in the API Documentation to create a user through OAuth, and then once added, then can be authorized through the Authorized button in the Swagger documentation. This will allow access to the protected routes (mainly the POST, PUT, and DELETE routes).
+This program is using authorization from ***Google OAuth 2***, meaning that to be authenticated, one must connect follow a link in the API Documentation to create a user through OAuth, and then once added, then can be authorized through the Authorized button in the Swagger documentation. This will allow access to the protected routes (mainly the POST, PUT, and DELETE routes).
 
 <!-- Swagger Documentation Image -->
 <img src="SwaggerDocumentation.png" alt="image" width="600"/>
@@ -19,7 +19,7 @@ This program also has validation integrated into it, so if there is a ***POST***
 
 Inside this program are also ***Unit Tests*** for each of the routes in the Swagger API Documentation. Each test checks whether the route works correctly and returns the correct response. There are a few mocks being used in it, but other than that, it tests directly to the database by creating, updating, and deleting the users, so that it does not add unnecessary database entries. There are 19 tests total, and they all pass.
 
-Here is the demo video that I created to show off the project: 
+Here is the demo video that I submitted to show off the project. It goes into detail about the project and some of the challenges that I faced: 
 * [CSE 341 - Final Project - Workout Tracker](https://www.youtube.com/watch?v=doYIXvnF7fU&list=PLPE1QSGfgkqzt2ZOL1YVs88NRuCPuE96I&index=11)
 
 
